@@ -1,0 +1,33 @@
+<?php 
+/**
+ * CoolMS2 Contact module (http://www.coolms.com/)
+ * 
+ * @link      http://github.com/coolms/CmsContact for the canonical source repository
+ * @copyright Copyright (c) 2006-2015 Altgraphic, ALC (http://www.altgraphic.com)
+ * @license   http://www.coolms.com/license/new-bsd New BSD License
+ * @author    Dmitry Popov <d.popov@altgraphic.com>
+ */
+
+namespace CmsContact;
+
+$type = $this->fieldset->get('type')->setAttributes(['twb' => ['class' => 'btn']]);
+
+$this->fieldset->get('value')->setOptions([
+        'twb' => [
+            'decorators' => [
+                'formInputGroup' => [
+                    'glyphicon' => function ($element) use ($type) {
+                            return $type->getValue() ? [
+                                'name'      => $type->getValue() === 'mobile' ? 'phone' : 'phone-alt',
+                                'placement' => 'append',
+                            ] : null;
+                        },
+                    'elements'  => ['type' => ['placement' => 'prepend']],
+                ],
+                'col',
+                'formGroup',
+            ],
+        ],
+    ]);
+?>
+<?= $this->formCollection($this->fieldset, true, false);
