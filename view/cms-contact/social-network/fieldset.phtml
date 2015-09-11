@@ -10,27 +10,17 @@
 
 namespace CmsContact;
 
-$this->fieldset->get('value')->setOptions([
-        'twbs' => [
-            'decorators' => [
-                'formControl',
-                'type' => [
-                    'type' => 'element',
-                    'content' => 'type',
-                    'placement' => 'prepend',
-                    'class' => 'btn',
-                    'decorators' => [
-                        'inputGroupBtn',
-                    ],
-                ],
-                'inputGroup',
-                'controlLabel' => ['placement' => 'prepend', 'class' => 'sr-only'],
-                'col',
-                'formControlFeedback' => ['placement' => 'append'],
-                'formGroup',
-            ],
+$this->fieldset->get('value')->setOption('twbs', [
+    'type' => [
+        'type' => 'element',
+        'content' => 'type',
+        'placement' => 'prepend',
+        'class' => 'btn',
+        'order' => 5950,
+        'decorators' => [
+            'inputGroupBtn',
         ],
-        'label_attributes' => ['twbs' => ['class' => 'control-label sr-only']]
-    ]);
+    ],
+]);
 ?>
 <?= $this->formCollection($this->fieldset, true, false);

@@ -23,7 +23,7 @@ trait ContactMetadatableTrait
      *          "name":"contactMetadata",
      *          "label":"Contact metadata",
      *          "partial":"cms-contact/metadata/fieldset",
-     *          "translator_text_domain":"CmsContact",
+     *          "text_domain":"CmsContact",
      *      }})
      */
     protected $contactMetadata;
