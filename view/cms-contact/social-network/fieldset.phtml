@@ -11,11 +11,15 @@
 namespace CmsContact;
 
 $this->fieldset->get('value')->setOption('twbs', [
+    'icon' => [
+        'placement' => false,
+    ],
     'type' => [
         'type' => 'element',
         'content' => 'type',
         'placement' => 'prepend',
-        'class' => 'btn',
+        'class' => 'selectpicker',
+        'data-style' => 'btn btn-default',
         'order' => 5950,
         'decorators' => [
             'inputGroupBtn',
