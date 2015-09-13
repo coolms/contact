@@ -11,6 +11,10 @@
 namespace CmsContact;
 
 $type = $this->fieldset->get('type');
+/*foreach ($type->getValueOptions() ) {
+    
+}*/
+
 $this->fieldset->get('value')->setOption('twbs', [
     'icon' => function ($element) use ($type) {
         return $type->getValue() ? [
@@ -25,7 +29,9 @@ $this->fieldset->get('value')->setOption('twbs', [
         'type' => 'element',
         'content' => 'type',
         'placement' => 'prepend',
-        'class' => 'btn',
+        'class' => 'selectpicker',
+        'data-style' => 'btn btn-default',
+        'data-width' => 'auto',
         'order' => 5950,
         'decorators' => [
             'inputGroupBtn',
