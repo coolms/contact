@@ -18,14 +18,42 @@ $this->fieldset->get('value')->setOption('twbs', [
         'type' => 'element',
         'content' => 'type',
         'placement' => 'prepend',
-        'class' => 'selectpicker',
-        'data-style' => 'btn btn-default',
-        'data-width' => 'auto',
+        'class' => 'selectpicker btn btn-default',
         'order' => 5950,
         'decorators' => [
             'inputGroupBtn',
         ],
     ],
+    'removeButton' => function() use ($fieldset) {
+        return $fieldset->getOption('allow_remove') ? [
+            'type' => 'glyphicon',
+            'content' => 'minus',
+            'placement' => 'append',
+            'order' => 5950,
+            'decorators' => [
+                'btn' => [
+                    'class' => 'btn-danger',
+                    'onclick' => <<<EOJ
+return CmsCommon.Form.Collection.removeFieldset(this);
+EOJ
+                ],
+                'inputGroupBtn',
+            ],
+        ] : [
+            'placement' => false,
+        ];
+    },
+    'feedback' => function() use ($fieldset) {
+        return $fieldset->getOption('allow_remove') ? [
+            'type' => 'FormControlFeedback',
+            'style' => 'right:55px',
+        ] : [
+            'type' => 'FormControlFeedback',
+        ];
+    },
+    'row' => [
+        'data-counter' => $this->counter,
+    ],
 ]);
 ?>
-<?= $this->formCollection($this->fieldset, true, false);
+<?= $this->formCollection($this->fieldset, false, false);
