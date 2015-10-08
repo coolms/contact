@@ -10,7 +10,8 @@
 
 namespace CmsContact\View\Helper;
 
-use Zend\View\Exception,
+use Traversable,
+    Zend\View\Exception,
     Zend\View\Helper\AbstractHelper,
     Zend\Stdlib\ArrayUtils;
 
@@ -25,7 +26,7 @@ class Collection extends AbstractHelper
     protected $separator;
 
     /**
-     * @param array|\Traversable $collection
+     * @param array|Traversable $collection
      * @return self|string
      */
     public function __invoke($collection = null, $separator = ', ')
@@ -33,6 +34,7 @@ class Collection extends AbstractHelper
         if (null === $collection) {
             return $this;
         }
+
         $this->setSeparator($separator);
         return $this->render($collection);
     }
@@ -46,24 +48,29 @@ class Collection extends AbstractHelper
     public function render($collection)
     {
         if ($collection) {
-            
-            if ($collection instanceof \Traversable) {
+
+            if ($collection instanceof Traversable) {
                 $collection = ArrayUtils::iteratorToArray($collection);
             }
+
             if (!is_array($collection)) {
-                throw new Exception\InvalidArgumentException('Collection must be type of array or Traversable');
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'Collection must be type of array or %s',
+                    Traversable::class
+                ));
             }
-            
+
             $renderer = $this->getView();
             if (!method_exists($renderer, 'plugin')) {
                 // Bail early if renderer is not pluggable
                 return '';
             }
-            
+
             $helper = $this->getView()->plugin('cmsContact');
             foreach ($collection as $contactEntity) {
                 $values [] = $helper($contactEntity);
             }
+
             if (isset($values)) {
                 return implode($this->getSeparator(), $values);
             }

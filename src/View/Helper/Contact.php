@@ -11,6 +11,7 @@
 namespace CmsContact\View\Helper;
 
 use Zend\View\Helper\AbstractHelper,
+    CmsContact\Mapping,
     CmsContact\Mapping\ContactInterface;
 
 /**
@@ -35,15 +36,15 @@ class Contact extends AbstractHelper
 
     /**
      * Contact entity map to view helper
-     * 
+     *
      * @var array
      */
     protected $classMap = [
-        'CmsContact\Entity\Email'         => 'cmscontactemail',
-        'CmsContact\Entity\Messenger'     => 'cmscontactmessenger',
-        'CmsContact\Entity\Phone'         => 'cmscontactphone',
-        'CmsContact\Entity\SocialNetwork' => 'cmscontactsocialnetwork',
-        'CmsContact\Entity\Website'       => 'cmscontactwebsite',
+        Mapping\EmailInterface::class           => 'cmscontactemail',
+        Mapping\MessengerInterface::class       => 'cmscontactmessenger',
+        Mapping\PhoneInterface::class           => 'cmscontactphone',
+        Mapping\SocialNetworkInterface::class   => 'cmscontactsocialnetwork',
+        Mapping\WebsiteInterface::class         => 'cmscontactwebsite',
     ];
 
     /**
@@ -55,6 +56,7 @@ class Contact extends AbstractHelper
         if (func_num_args() === 0) {
             return $this;
         }
+
         if (null !== $contactEntity) {
             return $this->render($contactEntity);
         }
@@ -73,15 +75,15 @@ class Contact extends AbstractHelper
             // Bail early if renderer is not pluggable
             return '';
         }
-        
+
         $this->setEntity($contactEntity);
-        
+
         $renderedInstance = $this->renderInstance($contactEntity);
-        
+
         if ($renderedInstance !== null) {
             return $renderedInstance;
         }
-        
+
         return $this->format();
     }
 
@@ -113,6 +115,7 @@ class Contact extends AbstractHelper
                 return $this->renderHelper($pluginName, $contactEntity);
             }
         }
+
         return null;
     }
 
